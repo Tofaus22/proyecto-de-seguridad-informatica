@@ -5,7 +5,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 
 
-HTTPS_SCORE = 25
+HTTPS_SCORE = 15
 
 
 def check_https(final_url: str) -> dict:

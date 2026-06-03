@@ -39,7 +39,7 @@ facilitar el mantenimiento y permitir agregar nuevos análisis a futuro:
   * escaner/checks/security_txt.py: (NUEVO) Verifica si el sitio implementa
     el estándar RFC 9116 (archivo security.txt) para reporte de vulnerabilidades.
   * escaner/scanner.py: Orquestador principal que maneja los análisis (el puntaje
-    máximo se incrementó a 140 puntos reflejando los nuevos módulos).
+    se normalizó a 100 puntos base integrando todos los módulos de manera proporcional).
   * escaner/report.py: Generación de reportes formateados para consola
     y en formato estructurado JSON.
   * escaner/history.py: Guarda y recupera los escaneos de forma local.
@@ -91,3 +91,13 @@ Se resolvieron varios detalles técnicos críticos del proyecto original:
   * Estado en historial corregido: Se corrigió un bug donde todos los
     estados del historial se registraban como "error" debido a la
     existencia por defecto del campo.
+
+5. PREPARACIÓN PARA DESPLIEGUE EN PRODUCCIÓN (Render/PaaS)
+------------------------------------------------------------------------
+Se configuró el entorno para poder ser alojado en internet de forma gratuita
+y estable en plataformas como Render o Railway:
+  * Se agregó un archivo `Procfile` que define el comando de inicio para
+    servidores de producción WSGI (Gunicorn).
+  * Se incluyó el paquete `gunicorn` en `requirements.txt` como servidor web.
+  * Se creó un archivo `.gitignore` configurado profesionalmente para
+    evitar subir entornos virtuales y cachés a repositorios públicos.

@@ -19,7 +19,7 @@ TECH_HEADERS = {
     "CF-RAY": "Cloudflare CDN",
 }
 
-TECH_SCORE = 5
+TECH_SCORE = 10
 
 
 def detect_technologies(response_headers: dict[str, Any], html: str = "") -> dict:

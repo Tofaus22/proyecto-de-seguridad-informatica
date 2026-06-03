@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from bs4 import BeautifulSoup
 
-CSRF_SCORE = 10
+CSRF_SCORE = 5
 
 
 def check_forms_for_csrf(html: str) -> dict:

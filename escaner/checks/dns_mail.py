@@ -5,7 +5,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 import requests
 
-DNS_MAIL_SCORE = 15
+DNS_MAIL_SCORE = 5
 
 
 def check_dns_mail_security(url: str) -> dict:

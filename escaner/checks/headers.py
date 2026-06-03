@@ -44,7 +44,7 @@ SECURITY_HEADERS = {
 MAX_HEADER_SCORE = sum(h["weight"] for h in SECURITY_HEADERS.values())
 
 # Normalizamos a 20 puntos del total
-HEADER_TOTAL = 20
+HEADER_TOTAL = 15
 
 
 def check_security_headers(response_headers: dict[str, Any]) -> dict:

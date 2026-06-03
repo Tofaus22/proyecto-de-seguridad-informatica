@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-COOKIES_SCORE = 15
+COOKIES_SCORE = 10
 
 
 def check_cookies(response_cookies: list[dict]) -> dict:

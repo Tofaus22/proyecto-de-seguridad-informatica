@@ -5,7 +5,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 import requests
 
-ROBOTS_SCORE = 10
+ROBOTS_SCORE = 5
 
 # Palabras clave sospechosas o sensibles a buscar en las reglas de desautorizacion
 SENSITIVE_KEYWORDS = [

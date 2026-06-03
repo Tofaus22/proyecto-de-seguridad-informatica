@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from bs4 import BeautifulSoup, Comment
 
-COMMENTS_SCORE = 10
+COMMENTS_SCORE = 5
 
 # Palabras clave que denotan anotaciones internas o secretos
 SENSITIVE_KEYWORDS = [
