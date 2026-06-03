@@ -1,0 +1,58 @@
+[
+  {
+    "timestamp": "2026-06-03 13:55:52",
+    "url": "https://www.alkomprar.com/",
+    "score": 92,
+    "max_score": 100,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 14:04:48",
+    "url": "https://aulaweb.unicesar.edu.co/",
+    "score": 79,
+    "max_score": 100,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 14:11:11",
+    "url": "https://www.cinecalidad.am/",
+    "score": 69,
+    "max_score": 100,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 14:14:28",
+    "url": "https://jarvis-asistente.netlify.app/",
+    "score": 77,
+    "max_score": 100,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 14:35:22",
+    "url": "https://github.com",
+    "score": 124,
+    "max_score": 140,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 14:37:02",
+    "url": "https://example.com",
+    "score": 109,
+    "max_score": 140,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 14:39:12",
+    "url": "https://www.facebook.com/",
+    "score": 114,
+    "max_score": 140,
+    "status": "success"
+  },
+  {
+    "timestamp": "2026-06-03 15:12:45",
+    "url": "https://aulaweb.unicesar.edu.co/",
+    "score": 99,
+    "max_score": 140,
+    "status": "success"
+  }
+]

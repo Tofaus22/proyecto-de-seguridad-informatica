@@ -1,0 +1,93 @@
+========================================================================
+             MEJORAS Y NUEVAS CARACTERÍSTICAS DEL PROYECTO
+========================================================================
+
+Se ha realizado una refactorización completa del Escáner de Seguridad
+Web original, transformándolo en una herramienta modular, robusta y con
+un dashboard web de última generación.
+
+A continuación se detalla todo lo que se agregó y mejoró:
+
+1. ARQUITECTURA MODULAR (Paquete 'escaner/')
+------------------------------------------------------------------------
+El script único original se dividió en módulos especializados para
+facilitar el mantenimiento y permitir agregar nuevos análisis a futuro:
+  * escaner/checks/https.py: Verifica conexiones HTTPS.
+  * escaner/checks/ssl_cert.py: Obtiene y analiza detalles del
+    certificado SSL (emisor, días restantes, si es autofirmado y el
+    protocolo TLS utilizado).
+  * escaner/checks/headers.py: Expande el análisis de 3 cabeceras de
+    seguridad originales a 8 cabeceras clave (CSP, HSTS, X-Frame-Options,
+    X-Content-Type-Options, Referrer-Policy, Permissions-Policy,
+    X-XSS-Protection, y Cache-Control).
+  * escaner/checks/cookies.py: Expande el análisis de cookies revisando
+    atributos Secure, HttpOnly y SameSite.
+  * escaner/checks/csrf.py: Detección mejorada de protección contra CSRF
+    (busca meta tags globales y campos ocultos con nombres de tokens).
+  * escaner/checks/mixed_content.py: Busca si una página HTTPS carga
+    recursos (imágenes, scripts, iframes) mediante HTTP inseguro.
+  * escaner/checks/tech_detect.py: Detecta tecnologías expuestas
+    (servidores web, CMS, frameworks, CDNs) a través de cabeceras y HTML.
+  * escaner/checks/robots.py: (NUEVO) Analiza el archivo robots.txt
+    buscando la exposición de directorios o rutas sensibles (como /admin,
+    /backup, /private, etc.).
+  * escaner/checks/dns_mail.py: (NUEVO) Realiza consultas DNS pasivas mediante
+    DNS-over-HTTPS (DoH) para verificar las políticas de seguridad
+    antisuplantación de correo SPF y DMARC del dominio.
+  * escaner/checks/html_comments.py: (NUEVO) Audita comentarios HTML en busca
+    de anotaciones de desarrollo (TODO, FIXME) o credenciales expuestas.
+  * escaner/checks/security_txt.py: (NUEVO) Verifica si el sitio implementa
+    el estándar RFC 9116 (archivo security.txt) para reporte de vulnerabilidades.
+  * escaner/scanner.py: Orquestador principal que maneja los análisis (el puntaje
+    máximo se incrementó a 140 puntos reflejando los nuevos módulos).
+  * escaner/report.py: Generación de reportes formateados para consola
+    y en formato estructurado JSON.
+  * escaner/history.py: Guarda y recupera los escaneos de forma local.
+
+2. DASHBOARD WEB INTERACTIVO PREMIUM (Módulo 'web/')
+------------------------------------------------------------------------
+Se diseñó e implementó un dashboard web moderno bajo el patrón de diseño
+de "Glassmorphism" con los siguientes añadidos visuales y lógicos:
+  * Servidor web en Flask (web/app.py) con endpoints API para escaneo,
+    historial y vaciado de datos.
+  * Interfaz de usuario interactiva (HTML5/CSS3/Vanilla JS) con:
+    - Fondo oscuro con partículas flotantes animadas.
+    - Barra de búsqueda de URL con validación en tiempo real.
+    - Pantalla de carga dinámica que simula en tiempo real los pasos
+      del análisis del servidor.
+    - Medidor circular (Gauge) animado para la puntuación de seguridad.
+    - Resumen y tarjetas detalladas con colores temáticos (verde para
+      correcto, amarillo para advertencia y rojo para crítico).
+    - Historial dinámico persistente que carga búsquedas pasadas.
+    - BUSCADOR EN EL HISTORIAL: (NUEVO) Campo de búsqueda dinámico para filtrar
+      escaneos guardados por URL instantáneamente.
+    - EXPORTACIÓN DE REPORTES: (NUEVO) Botón para exportar el reporte actual a PDF
+      (con estilos CSS de impresión optimizados y guías expandidas de forma automática)
+      y botón para descargar los datos técnicos completos en formato JSON.
+    - GUÍAS DE MITIGACIÓN EDUCATIVAS: (NUEVO) Al hacer clic en cualquier tarjeta del
+      dashboard, esta se despliega revelando qué significa el riesgo, cómo solucionarlo
+      y bloques de código de ejemplo (Nginx, Apache, Node.js, HTML).
+
+3. INTERFAZ DE LÍNEA DE COMANDOS AVANZADA (main.py)
+------------------------------------------------------------------------
+Se creó un CLI completo usando 'argparse' que soporta:
+  * Escaneo individual directo: python main.py <url>
+  * Salida en formato JSON o Texto: python main.py <url> -o json
+  * Escaneo por lotes: python main.py --batch links.txt (lee un archivo
+    con múltiples URLs y las escanea de forma secuencial).
+  * Servidor web interactivo: python main.py --web --port <puerto>
+
+4. CORRECCIÓN DE BUGS Y ROBUSTEZ DEL SISTEMA
+------------------------------------------------------------------------
+Se resolvieron varios detalles técnicos críticos del proyecto original:
+  * Codificación UTF-8 en Windows: Se configuró sys.stdout y sys.stderr
+    para evitar caídas al mostrar caracteres Unicode (como emojis) en
+    consolas de Windows.
+  * Respuestas 403 y 404 analizables: El escáner ya no falla al encontrar
+    códigos de error de cliente/servidor. Ahora escanea las cabeceras de
+    seguridad y el certificado SSL incluso si el sitio devuelve un error.
+  * Búsqueda insensible a mayúsculas: Corrige la verificación de
+    cabeceras haciéndolas insensibles a mayúsculas y minúsculas.
+  * Estado en historial corregido: Se corrigió un bug donde todos los
+    estados del historial se registraban como "error" debido a la
+    existencia por defecto del campo.
